@@ -11,9 +11,21 @@ const gameboard = () => {
     ];
     const vertex = (x, y) => {
       const coordinates = [x, y];
+      const statusOptions = ['empty', 'ship', 'miss', 'hit'];
+      const status = ['empty'];
+      const setStatus = (newStatus) => {
+        if (statusOptions.includes(newStatus)) {
+          status[0] = newStatus;
+        }
+      };
+      const getStatus = () => status[0];
       // eslint-disable-next-line prefer-const
       let shipID = null;
-      return { coordinates, shipID };
+      const setShipID = (newID) => {
+        shipID = newID;
+      };
+      const getShipID = () => shipID;
+      return { coordinates, setShipID, getShipID, setStatus, getStatus };
     };
     const defineVertices = () => {
       const vertices = {};
@@ -61,14 +73,36 @@ const gameboard = () => {
       4 	Submarine 	    3
       5 	Patrol Boat 	  2 
    */
+  const rules = {
+    c: { size: 5, amount: 1 },
+    b: { size: 4, amount: 2 },
+    d: { size: 3, amount: 3 },
+    s: { size: 3, amount: 4 },
+    pb: { size: 2, amount: 5 },
+  };
+  const ships = {};
+  Object.keys(rules).forEach((classOfShip) => {
+    ships[classOfShip] = makeShips(
+      rules[classOfShip].size,
+      rules[classOfShip].amount,
+      classOfShip,
+    );
+  });
+  /*
   const ships = {
     ...makeShips(5, 1, 'c'),
     ...makeShips(4, 2, 'b'),
     ...makeShips(3, 3, 'd'),
     ...makeShips(3, 4, 's'),
     ...makeShips(2, 5, 'pb'),
-  };
-  return { graph, ships };
+  }; */
+  const gameGraph = graph();
+  const board = gameGraph.adjacencyList(
+    gameGraph.defineVertices(),
+    gameGraph.moves,
+  );
+
+  return { board, ships };
 };
 
 export default gameboard;
