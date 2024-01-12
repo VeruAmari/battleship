@@ -57,13 +57,12 @@ const gameboard = (start) => {
     return { adjacencyList, defineVertices, moves };
   };
 
-  // const myShips = {};
   const makeShips = (size, amount, id) => {
     const myShips = {};
     for (let i = 0; i < amount; i++) {
       myShips[`${id + (i + 1)}`] = shipFactory(size);
     }
-    return { ...myShips };
+    return myShips;
   };
   const makeShipList = () => {
     /** Rules:
@@ -81,69 +80,70 @@ const gameboard = (start) => {
       s: { size: 3, amount: 4 },
       pb: { size: 2, amount: 5 },
     };
-    const shps = {};
-    Object.keys(rules).forEach((classOfShip) => {
-      shps[classOfShip] = makeShips(
-        rules[classOfShip].size,
-        rules[classOfShip].amount,
-        classOfShip,
-      );
-    });
-    return shps;
-  };
-  const placeShips = (shipList, boardSurface) => {
-    Object.keys(shipList).forEach((key) => {
-      Object.keys(shipList[key]).forEach((ship) => {
-        const shipLength = shipList[key][ship].length();
 
-        const directions = [
-          [1, 0],
-          [0, 1],
-          [-1, 0],
-          [0, -1],
-        ];
-        let placed = false;
-        while (!placed) {
-          const randomTileKey =
-            Object.keys(boardSurface)[
-              Math.floor(Math.random() * Object.keys(boardSurface).length)
-            ];
-          directions.forEach((direction) => {
-            if (!placed) {
-              // Check if there is an obstruction
-              let availableSpaces = 0;
+    const shipList = {
+      ...makeShips(rules.c.size, rules.c.amount, 'c'),
+      ...makeShips(rules.b.size, rules.b.amount, 'b'),
+      ...makeShips(rules.d.size, rules.d.amount, 'd'),
+      ...makeShips(rules.s.size, rules.s.amount, 's'),
+      ...makeShips(rules.pb.size, rules.pb.amount, 'pb'),
+    };
+
+    return shipList;
+  };
+
+  const placeShips = (shipList, boardSurface) => {
+    Object.keys(shipList).forEach((ship) => {
+      const shipLength = shipList[ship].length();
+
+      const directions = [
+        [1, 0],
+        [0, 1],
+        [-1, 0],
+        [0, -1],
+      ];
+      let placed = false;
+      while (!placed) {
+        const randomTileKey =
+          Object.keys(boardSurface)[
+            Math.floor(Math.random() * Object.keys(boardSurface).length)
+          ];
+        directions.forEach((direction) => {
+          if (!placed) {
+            // Check if there is an obstruction
+            let availableSpaces = 0;
+            for (let i = 0; i < shipLength; i++) {
+              const a = direction[0] * (shipLength - i);
+              const b = direction[1] * (shipLength - i);
+              const keyWithABi = `${Number(randomTileKey[0]) + a},${
+                Number(randomTileKey[2]) + b
+              }`;
+              // The space is inside of the board
+              if (boardSurface[keyWithABi]) {
+                if (!boardSurface[keyWithABi].square.getShipID()) {
+                  availableSpaces += 1;
+                } else {
+                  break;
+                }
+              } else {
+                break;
+              }
+            }
+            if (availableSpaces === shipLength) {
               for (let i = 0; i < shipLength; i++) {
                 const a = direction[0] * (shipLength - i);
                 const b = direction[1] * (shipLength - i);
                 const keyWithABi = `${Number(randomTileKey[0]) + a},${
                   Number(randomTileKey[2]) + b
                 }`;
-                // The space is inside of the board
-                if (boardSurface[keyWithABi]) {
-                  if (!boardSurface[keyWithABi].square.getShipID()) {
-                    availableSpaces += 1;
-                  } else {
-                    break;
-                  }
-                } else {
-                  break;
-                }
+                boardSurface[keyWithABi].square.setShipID(ship);
+                boardSurface[keyWithABi].square.setStatus('ship');
               }
-              if (availableSpaces === shipLength) {
-                for (let i = 0; i < shipLength; i++) {
-                  const a = direction[0] * (shipLength - i);
-                  const b = direction[1] * (shipLength - i);
-                  const keyWithABi = `${Number(randomTileKey[0]) + a},${
-                    Number(randomTileKey[2]) + b
-                  }`;
-                  boardSurface[keyWithABi].square.setShipID(ship);
-                }
-                placed = true;
-              }
+              placed = true;
             }
-          });
-        }
-      });
+          }
+        });
+      }
     });
   };
   const ships = makeShipList();
@@ -156,11 +156,10 @@ const gameboard = (start) => {
   if (start) {
     placeShips(ships, board);
   }
-  // function
-  // Place ships in
-  // Object.keys(ships)
+  // Must write receiveAttack function.
+  // const receiveAttack = (coords) => {};
 
-  return { board, ships, placeShips };
+  return { board, ships };
 };
 
 export default gameboard;

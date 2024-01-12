@@ -5,10 +5,6 @@ test('ship length is correct', () => {
   expect(ship(3).length()).toBe(3);
 });
 
-test('surface has 3 slots', () => {
-  expect(ship(3).surface).toEqual([false, false, false]);
-});
-
 test('hit increases hitcount', () => {
   const shp1 = ship(3);
   const shp2 = ship(3);

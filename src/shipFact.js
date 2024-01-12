@@ -1,16 +1,13 @@
 const ship = (len) => {
-  const surface = [];
+  const surface = len;
   let hits = 0;
-  for (let i = 0; i < len; i += 1) {
-    surface.push(false);
-  }
   const hit = () => {
     hits += 1;
   };
-  const length = () => surface.length;
+  const length = () => surface;
   const getHits = () => hits;
   const isSunk = () => hits === length();
-  return { length, hit, surface, getHits, isSunk };
+  return { length, hit, getHits, isSunk };
 };
 
 export default ship;

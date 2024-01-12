@@ -7,23 +7,15 @@ test('basic test graph', () => {
 });
 
 const game = gameboard(true);
-test('basic test ships', () => {
+test('amount of ships to equal 15', () => {
   const theShips = game.ships;
-  expect(Object.keys(theShips).length).toEqual(5);
+  expect(Object.keys(theShips).length).toEqual(15);
 });
-test('basic test ships 2', () => {
+test('length of ship c1 to be 5', () => {
   const theShips = game.ships;
-  expect(
-    Object.keys(theShips)
-      .map((key) => theShips[key])[0]
-      .c1.length(),
-  ).toEqual(5);
+  expect(theShips.c1.length()).toEqual(5);
 });
 test('basic test ships 3', () => {
   const theShips = game.ships;
-  expect(
-    Object.keys(theShips)
-      .map((key) => theShips[key])[0]
-      .c1.length(),
-  ).toEqual(5);
+  expect(Object.keys(theShips).length).toEqual(15);
 });
