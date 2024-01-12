@@ -1,7 +1,8 @@
+/* eslint-disable no-loop-func */
 import shipFactory from './shipFact';
 
 /* eslint no-plusplus: off */
-const gameboard = () => {
+const gameboard = (start) => {
   const graph = () => {
     const moves = [
       [1, 0],
@@ -41,6 +42,7 @@ const gameboard = () => {
       const adjacency = {};
       Object.keys(vertexList).forEach((key) => {
         adjacency[key] = {};
+        adjacency[key].square = vertexList[key];
         movesList.forEach((move) => {
           const moveKey = `${Number(key[0]) + Number(move[0])},${
             Number(key[2]) + Number(move[1])
@@ -55,8 +57,6 @@ const gameboard = () => {
     return { adjacencyList, defineVertices, moves };
   };
 
-  // const boardGraph = graph();
-
   // const myShips = {};
   const makeShips = (size, amount, id) => {
     const myShips = {};
@@ -65,44 +65,102 @@ const gameboard = () => {
     }
     return { ...myShips };
   };
-  /** Rules:
-   * No. 	Class of ship 	Size
-      1 	Carrier 	      5
-      2 	Battleship    	4
-      3 	Destroyer 	    3
-      4 	Submarine 	    3
-      5 	Patrol Boat 	  2 
-   */
-  const rules = {
-    c: { size: 5, amount: 1 },
-    b: { size: 4, amount: 2 },
-    d: { size: 3, amount: 3 },
-    s: { size: 3, amount: 4 },
-    pb: { size: 2, amount: 5 },
+  const makeShipList = () => {
+    /** Rules:
+     * No. 	Class of ship 	Size
+        1 	Carrier 	      5
+        2 	Battleship    	4
+        3 	Destroyer 	    3
+        4 	Submarine 	    3
+        5 	Patrol Boat 	  2 
+     */
+    const rules = {
+      c: { size: 5, amount: 1 },
+      b: { size: 4, amount: 2 },
+      d: { size: 3, amount: 3 },
+      s: { size: 3, amount: 4 },
+      pb: { size: 2, amount: 5 },
+    };
+    const shps = {};
+    Object.keys(rules).forEach((classOfShip) => {
+      shps[classOfShip] = makeShips(
+        rules[classOfShip].size,
+        rules[classOfShip].amount,
+        classOfShip,
+      );
+    });
+    return shps;
   };
-  const ships = {};
-  Object.keys(rules).forEach((classOfShip) => {
-    ships[classOfShip] = makeShips(
-      rules[classOfShip].size,
-      rules[classOfShip].amount,
-      classOfShip,
-    );
-  });
-  /*
-  const ships = {
-    ...makeShips(5, 1, 'c'),
-    ...makeShips(4, 2, 'b'),
-    ...makeShips(3, 3, 'd'),
-    ...makeShips(3, 4, 's'),
-    ...makeShips(2, 5, 'pb'),
-  }; */
+  const placeShips = (shipList, boardSurface) => {
+    Object.keys(shipList).forEach((key) => {
+      Object.keys(shipList[key]).forEach((ship) => {
+        const shipLength = shipList[key][ship].length();
+
+        const directions = [
+          [1, 0],
+          [0, 1],
+          [-1, 0],
+          [0, -1],
+        ];
+        let placed = false;
+        while (!placed) {
+          const randomTileKey =
+            Object.keys(boardSurface)[
+              Math.floor(Math.random() * Object.keys(boardSurface).length)
+            ];
+          directions.forEach((direction) => {
+            if (!placed) {
+              // Check if there is an obstruction
+              let availableSpaces = 0;
+              for (let i = 0; i < shipLength; i++) {
+                const a = direction[0] * (shipLength - i);
+                const b = direction[1] * (shipLength - i);
+                const keyWithABi = `${Number(randomTileKey[0]) + a},${
+                  Number(randomTileKey[2]) + b
+                }`;
+                // The space is inside of the board
+                if (boardSurface[keyWithABi]) {
+                  if (!boardSurface[keyWithABi].square.getShipID()) {
+                    availableSpaces += 1;
+                  } else {
+                    break;
+                  }
+                } else {
+                  break;
+                }
+              }
+              if (availableSpaces === shipLength) {
+                for (let i = 0; i < shipLength; i++) {
+                  const a = direction[0] * (shipLength - i);
+                  const b = direction[1] * (shipLength - i);
+                  const keyWithABi = `${Number(randomTileKey[0]) + a},${
+                    Number(randomTileKey[2]) + b
+                  }`;
+                  boardSurface[keyWithABi].square.setShipID(ship);
+                }
+                placed = true;
+              }
+            }
+          });
+        }
+      });
+    });
+  };
+  const ships = makeShipList();
   const gameGraph = graph();
   const board = gameGraph.adjacencyList(
     gameGraph.defineVertices(),
     gameGraph.moves,
   );
 
-  return { board, ships };
+  if (start) {
+    placeShips(ships, board);
+  }
+  // function
+  // Place ships in
+  // Object.keys(ships)
+
+  return { board, ships, placeShips };
 };
 
 export default gameboard;
