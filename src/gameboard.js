@@ -157,9 +157,37 @@ const gameboard = (start) => {
     placeShips(ships, board);
   }
   // Must write receiveAttack function.
-  // const receiveAttack = (coords) => {};
+  const receiveAttack = (coords) => {
+    const status = board[coords].square.getStatus();
+    if (status === 'ship') {
+      board[coords].square.setStatus('hit');
+      const ship = board[coords].square.getShipID();
+      ships[ship].hit();
+      return true;
+    }
+    if (status === 'empty') {
+      board[coords].square.setStatus('miss');
+      return true;
+    }
+    return false;
+  };
 
-  return { board, ships };
+  const allShipsSunk = () => {
+    let sunkenShips = 0;
+    Object.keys(ships).forEach((ship) => {
+      if (ships[ship].isSunk()) {
+        sunkenShips += 1;
+      }
+    });
+    return sunkenShips === 15;
+  };
+  const hitAll = () => {
+    Object.keys(board).forEach((sqr) => {
+      receiveAttack(sqr);
+    });
+  };
+
+  return { board, ships, receiveAttack, allShipsSunk, hitAll };
 };
 
 export default gameboard;

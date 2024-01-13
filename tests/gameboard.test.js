@@ -19,3 +19,19 @@ test('basic test ships 3', () => {
   const theShips = game.ships;
   expect(Object.keys(theShips).length).toEqual(15);
 });
+
+test('first shot lands', () => {
+  expect(game.receiveAttack('0,0')).toBe(true);
+});
+test('second shot lands', () => {
+  expect(game.receiveAttack('0,0')).toBe(false);
+});
+
+test('reports not all ships are sunk', () => {
+  expect(game.allShipsSunk()).toBe(false);
+});
+
+test('reports all ships are sunk', () => {
+  game.hitAll();
+  expect(game.allShipsSunk()).toBe(true);
+});
