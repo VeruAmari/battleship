@@ -1,3 +1,100 @@
 :root {
-  color-scheme: light dark;
+  background-color: rgb(25, 21, 36);
+  color: antiquewhite;
+  font-family: "Courier New", Courier, monospace;
+}
+body {
+  height: 100vh;
+}
+
+.header,
+.scores,
+.score,
+body,
+.boards,
+.boards > *,
+.square {
+  display: grid;
+}
+.scores {
+  grid-template-columns: 1fr 1fr;
+}
+.player-1.score,
+.player-2.score {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.boards {
+  grid-template-columns: 1fr 1fr;
+}
+.boards > * {
+  grid-template-columns: repeat(10, auto);
+
+  grid-template-rows: repeat(10, auto);
+  align-content: center;
+  justify-content: center;
+}
+.boards > * > * {
+  border: solid 1px black;
+}
+.square {
+  background-color: rgb(120, 120, 243);
+
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+}
+.miss {
+  background-color: rgb(231, 101, 123);
+}
+.hit {
+  background-color: aqua;
+}
+.square:hover {
+  background-color: rgba(77, 249, 255, 0.753);
+}
+.ship {
+  border: dotted white 1px;
+}
+.b1,
+.b2 {
+  background-image: radial-gradient(
+    rgba(73, 67, 95, 0.5),
+    rgba(201, 182, 153, 0.9)
+  );
+}
+.c1 {
+  background-image: radial-gradient(
+    rgba(73, 67, 95, 0.5),
+    rgba(127, 166, 173, 0.9)
+  );
+}
+.d1,
+.d2,
+.d3 {
+  background-image: radial-gradient(
+    rgba(73, 67, 95, 0.5),
+    rgba(195, 156, 233, 0.9)
+  );
+}
+.s1,
+.s2,
+.s3,
+.s4 {
+  background-image: radial-gradient(
+    rgba(73, 67, 95, 0.5),
+    rgba(143, 115, 245, 0.9)
+  );
+}
+.pb1,
+.pb2,
+.pb3,
+.pb4,
+.pb5 {
+  background-image: radial-gradient(
+    rgba(73, 67, 95, 0.5),
+    rgba(177, 214, 238, 0.9)
+  );
 }
