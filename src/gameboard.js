@@ -13,20 +13,24 @@ const gameboard = (start) => {
     const vertex = (x, y) => {
       const coordinates = [x, y];
       const statusOptions = ['empty', 'ship', 'miss', 'hit'];
-      const status = ['empty'];
-      const setStatus = (newStatus) => {
-        if (statusOptions.includes(newStatus)) {
-          status[0] = newStatus;
-        }
+      let status = 'empty';
+      const giveShip = () => {
+        status = 'ship';
       };
-      const getStatus = () => status[0];
+      const updateStatus = () => {
+        status =
+          status === statusOptions[0] ? statusOptions[2] : statusOptions[3];
+      };
+      const getStatus = () => status;
       // eslint-disable-next-line prefer-const
       let shipID = null;
       const setShipID = (newID) => {
+        // eslint-disable-next-line prefer-destructuring
+        giveShip();
         shipID = newID;
       };
       const getShipID = () => shipID;
-      return { coordinates, setShipID, getShipID, setStatus, getStatus };
+      return { coordinates, setShipID, getShipID, updateStatus, getStatus };
     };
     const defineVertices = () => {
       const vertices = {};
@@ -137,7 +141,6 @@ const gameboard = (start) => {
                   Number(randomTileKey[2]) + b
                 }`;
                 boardSurface[keyWithABi].square.setShipID(ship);
-                boardSurface[keyWithABi].square.setStatus('ship');
               }
               placed = true;
             }
@@ -160,14 +163,14 @@ const gameboard = (start) => {
   const receiveAttack = (coords) => {
     const status = board[coords].square.getStatus();
     if (status === 'ship') {
-      board[coords].square.setStatus('hit');
+      board[coords].square.updateStatus();
       const ship = board[coords].square.getShipID();
       ships[ship].hit();
       return true;
     }
     if (status === 'empty') {
-      board[coords].square.setStatus('miss');
-      return true;
+      board[coords].square.updateStatus();
+      return false;
     }
     return false;
   };

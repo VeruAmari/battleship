@@ -1,6 +1,6 @@
 const player = (name) => {
   const playerName = name;
-
+  let score = 0;
   const movesMade = {};
   const moves = {};
   for (let i = 0; i < 10; i += 1) {
@@ -26,14 +26,18 @@ const player = (name) => {
       const moveIndex = Math.floor(Math.random() * computerMoves.length);
       chosenMove = computerMoves[moveIndex];
       if (!movesMade[chosenMove]) {
+        movesMade[chosenMove] = true;
         valid = true;
       }
     }
     return chosenMove;
   };
   const getPlayer = () => playerName;
-
-  return { getPlayer, validMove, computerMakeMove };
+  const getScore = () => score;
+  const updateScore = () => {
+    score += 1;
+  };
+  return { getPlayer, validMove, computerMakeMove, getScore, updateScore };
 };
 
 export default player;

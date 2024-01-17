@@ -55,7 +55,7 @@ body,
 .square:hover {
   background-color: rgba(77, 249, 255, 0.753);
 }
-.ship {
+.has-ship {
   border: dotted white 1px;
 }
 .b1,
