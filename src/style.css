@@ -1,13 +1,20 @@
 :root {
-  background-color: rgb(25, 21, 36);
-  color: antiquewhite;
+  --blue-1: rgb(157, 154, 252);
+  background-color: rgb(255, 242, 238);
+  color: rgb(29, 8, 0);
   font-family: "Courier New", Courier, monospace;
+  font-weight: bolder;
 }
 body {
   height: 100vh;
+  justify-content: center;
+  justify-items: center;
+  align-content: space-between;
+  gap: 1rem;
 }
 
 .header,
+.footer,
 .scores,
 .score,
 body,
@@ -16,8 +23,23 @@ body,
 .square {
   display: grid;
 }
+.header,
+.footer {
+  background-color: var(--blue-1);
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+.footer {
+  height: 3rem;
+}
+.header {
+  height: 7rem;
+  font-size: 2rem;
+}
 .scores {
   grid-template-columns: 1fr 1fr;
+  font-size: 1.5rem;
 }
 .player-1.score,
 .player-2.score {
@@ -29,7 +51,11 @@ body,
 }
 .boards > * {
   grid-template-columns: repeat(10, auto);
-
+  background-color: var(--blue-1);
+  background-image: radial-gradient(
+    rgba(161, 255, 250, 0.2),
+    rgba(74, 7, 136, 0.4)
+  );
   grid-template-rows: repeat(10, auto);
   align-content: center;
   justify-content: center;
@@ -38,8 +64,8 @@ body,
   border: solid 1px black;
 }
 .square {
-  background-color: rgb(120, 120, 243);
-
+  /*background-color: var(--blue-1);
+*/
   width: 50px;
   height: 50px;
   font-size: 30px;
@@ -47,13 +73,13 @@ body,
   justify-content: center;
 }
 .miss {
-  background-color: rgb(231, 101, 123);
+  background-color: rgba(243, 124, 88, 0.7);
 }
 .hit {
-  background-color: aqua;
+  background-color: rgba(173, 255, 188, 0.7);
 }
 .square:hover {
-  background-color: rgba(77, 249, 255, 0.753);
+  background-color: rgba(126, 188, 137, 0.7);
 }
 .has-ship {
   border: dotted white 1px;
@@ -61,22 +87,22 @@ body,
 .b1,
 .b2 {
   background-image: radial-gradient(
-    rgba(73, 67, 95, 0.5),
-    rgba(201, 182, 153, 0.9)
+    rgba(73, 67, 95, 0.2),
+    rgba(201, 182, 153, 1)
   );
 }
 .c1 {
   background-image: radial-gradient(
-    rgba(73, 67, 95, 0.5),
-    rgba(127, 166, 173, 0.9)
+    rgba(73, 67, 95, 0.2),
+    rgba(127, 166, 173, 1)
   );
 }
 .d1,
 .d2,
 .d3 {
   background-image: radial-gradient(
-    rgba(73, 67, 95, 0.5),
-    rgba(195, 156, 233, 0.9)
+    rgba(73, 67, 95, 0.2),
+    rgba(195, 156, 233, 1)
   );
 }
 .s1,
@@ -84,8 +110,8 @@ body,
 .s3,
 .s4 {
   background-image: radial-gradient(
-    rgba(73, 67, 95, 0.5),
-    rgba(143, 115, 245, 0.9)
+    rgba(73, 67, 95, 0.2),
+    rgba(143, 115, 245, 1)
   );
 }
 .pb1,
@@ -94,7 +120,29 @@ body,
 .pb4,
 .pb5 {
   background-image: radial-gradient(
-    rgba(73, 67, 95, 0.5),
-    rgba(177, 214, 238, 0.9)
+    rgba(73, 67, 95, 0.2),
+    rgba(177, 214, 238, 1)
   );
+}
+.boards {
+  --border-1: solid 5px rgb(0, 119, 128);
+  --border-2: solid 5px rgb(8, 56, 75);
+  padding: 25px;
+  gap: 75px;
+  position: relative;
+  width: fit-content;
+  border-radius: 25px;
+  border-bottom: var(--border-1);
+  border-right: var(--border-1);
+  border-left: var(--border-2);
+  border-top: var(--border-2);
+}
+.hid {
+  visibility: hidden;
+}
+.victory.screen {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
