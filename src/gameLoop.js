@@ -49,6 +49,7 @@ const placement = (cell) => {
   // Ask for directional input
   if (shipKeys.length <= 0) {
     UI.hideBoardPlacement();
+
     UI.makeBoard(UI.player1Board, playerGameboard.board, 'manual');
 
     return false;
@@ -104,7 +105,7 @@ const placement = (cell) => {
     );
   } else {
     UI.hideBoardPlacement();
-    UI.makeBoard(UI.player1Board, playerGameboard.board, 'manual');
+    UI.makeBoard(UI.player2Board, playerGameboard.board, 'manual');
   } // Else, hide placing UI and start game
   return true;
 };

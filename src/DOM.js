@@ -19,7 +19,8 @@ const DOM = () => {
           cb(key);
         });
       }
-      if (mode === 'placement') {
+
+      if (mode === 'placement' || mode === 'auto') {
         newSquare.addEventListener('click', () => {
           if (cb(key)) {
             makeBoard(div, boardData, mode, cb);

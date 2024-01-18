@@ -90,43 +90,28 @@ body,
 }
 .b1,
 .b2 {
-  background-image: radial-gradient(
-    rgba(73, 67, 95, 0.2),
-    rgba(201, 182, 153, 1)
-  );
+  background-image: radial-gradient(rgba(73, 67, 95, 0.2), rgb(172, 141, 96));
 }
 .c1 {
-  background-image: radial-gradient(
-    rgba(73, 67, 95, 0.2),
-    rgba(127, 166, 173, 1)
-  );
+  background-image: radial-gradient(rgba(73, 67, 95, 0.2), rgb(59, 113, 122));
 }
 .d1,
 .d2,
 .d3 {
-  background-image: radial-gradient(
-    rgba(73, 67, 95, 0.2),
-    rgba(195, 156, 233, 1)
-  );
+  background-image: radial-gradient(rgba(73, 67, 95, 0.2), rgb(108, 71, 145));
 }
 .s1,
 .s2,
 .s3,
 .s4 {
-  background-image: radial-gradient(
-    rgba(73, 67, 95, 0.2),
-    rgba(143, 115, 245, 1)
-  );
+  background-image: radial-gradient(rgba(73, 67, 95, 0.2), rgb(55, 40, 107));
 }
 .pb1,
 .pb2,
 .pb3,
 .pb4,
 .pb5 {
-  background-image: radial-gradient(
-    rgba(73, 67, 95, 0.2),
-    rgba(177, 214, 238, 1)
-  );
+  background-image: radial-gradient(rgba(73, 67, 95, 0.2), rgb(53, 82, 102));
 }
 .boards {
   box-sizing: content-box;
