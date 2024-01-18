@@ -14,7 +14,7 @@ const DOM = () => {
       }
       newSquare.classList.add(key);
 
-      if (cb && mode === 'computer') {
+      if (mode === 'computer') {
         newSquare.addEventListener('click', () => {
           cb(key);
         });
@@ -27,7 +27,7 @@ const DOM = () => {
         });
       }
 
-      if (mode === 'placement' || mode === 'auto') {
+      if (mode === 'placement' || mode === 'manual' || mode === 'auto') {
         if (boardData[key].square.getShipID()) {
           newSquare.classList.add('has-ship');
           newSquare.classList.add(`${boardData[key].square.getShipID()}`);
@@ -69,20 +69,20 @@ const DOM = () => {
     victoryText.textContent = `${player} wins!`;
     victoryScreen.classList.toggle('hid');
   };
-  const getDirection = async (valids) => {
+  const getDirection = (valids, dirs, placeFunc, updFn) => {
     document.querySelector('.ship.direction').classList.remove('hid');
-    let direction = null;
     valids.forEach((dir) => {
       function abc() {
-        direction = dir;
         document.querySelector('.ship.direction').classList.add('hid');
         valids.forEach((element) => {
           const arrow = document.querySelector(`#${element}`);
           arrow.replaceWith(arrow.cloneNode(true));
         });
+        placeFunc(dirs[dir]);
+        updFn();
+        return dir;
       }
       document.querySelector(`#${dir}`).addEventListener('click', abc);
-      return direction;
     });
   };
   return {

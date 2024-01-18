@@ -97,6 +97,60 @@ const gameboard = (start) => {
     return shipList;
   };
 
+  const placeShipManually = (
+    shipList,
+    currentShipKey,
+    boardSurface,
+    clickedTile,
+  ) => {
+    const shipLength = shipList[currentShipKey].length();
+    const directions = [
+      [1, 0],
+      [0, 1],
+      [-1, 0],
+      [0, -1],
+    ];
+    const getValidDirections = () => {
+      const validDirections = [];
+      directions.forEach((direction) => {
+        // Check if there is an obstruction
+        let availableSpaces = 0;
+        for (let i = 1; i < shipLength + 1; i++) {
+          const a = direction[0] * (shipLength - i);
+          const b = direction[1] * (shipLength - i);
+          const keyWithABi = `${Number(clickedTile[0]) + a},${
+            Number(clickedTile[2]) + b
+          }`;
+          // The space is inside of the board
+          if (boardSurface[keyWithABi]) {
+            if (!boardSurface[keyWithABi].square.getShipID()) {
+              availableSpaces += 1;
+            } else {
+              break;
+            }
+          } else {
+            break;
+          }
+        }
+
+        if (availableSpaces === shipLength) {
+          validDirections.push(direction);
+        }
+      });
+      return validDirections;
+    };
+    const placeShip = (direction) => {
+      for (let i = 1; i < shipLength + 1; i++) {
+        const a = direction[0] * (shipLength - i);
+        const b = direction[1] * (shipLength - i);
+        const keyWithABi = `${Number(clickedTile[0]) + a},${
+          Number(clickedTile[2]) + b
+        }`;
+        boardSurface[keyWithABi].square.setShipID(currentShipKey);
+      }
+    };
+    return { getValidDirections, placeShip };
+  };
   const placeShips = (shipList, boardSurface) => {
     Object.keys(shipList).forEach((ship) => {
       const shipLength = shipList[ship].length();
@@ -191,7 +245,14 @@ const gameboard = (start) => {
     });
   };
 
-  return { board, ships, receiveAttack, allShipsSunk, hitAll };
+  return {
+    placeShipManually,
+    board,
+    ships,
+    receiveAttack,
+    allShipsSunk,
+    hitAll,
+  };
 };
 
 export default gameboard;

@@ -42,29 +42,74 @@ const playRound = (playerInput) => {
     UI.updateBoardCom(p1ChosenCoords, comBoardStatus);
   }
 };
+
+const shipKeys = Object.keys(playerGameboard.ships);
+
 const placement = (cell) => {
   // Ask for directional input
-  const validDirections = Object.keys(
-    playerGameboard.board[cell].adjacents,
-  ).map((key) => {
-    if (cell[0] > key[0]) {
-      return 'up';
-    }
-    if (cell[0] < key[0]) {
+  if (shipKeys.length <= 0) {
+    UI.hideBoardPlacement();
+    UI.makeBoard(UI.player1Board, playerGameboard.board, 'manual');
+
+    return false;
+  }
+  const currentShipKey = shipKeys.pop();
+
+  const placingShip = playerGameboard.placeShipManually(
+    playerGameboard.ships,
+    currentShipKey,
+    playerGameboard.board,
+    cell,
+  );
+
+  const valids = placingShip.getValidDirections();
+  if (!valids) {
+    shipKeys.push(currentShipKey);
+  }
+
+  const dirsDict = {};
+  const validDirectionsToWords = valids.map((dir) => {
+    if (dir[0] === 1) {
+      dirsDict.down = dir;
       return 'down';
     }
-    if (cell[2] < key[2]) {
+    if (dir[0] === -1) {
+      dirsDict.up = dir;
+      return 'up';
+    }
+    if (dir[1] === 1) {
+      dirsDict.right = dir;
       return 'right';
     }
-    return 'left';
+    if (dir[1] === -1) {
+      dirsDict.left = dir;
+      return 'left';
+    }
+    return false;
   });
-
-  UI.getDirection(validDirections);
-  // player1BoardPlacement;
-  return false;
+  if (validDirectionsToWords.length > 0) {
+    const update = () => {
+      UI.makeBoard(
+        UI.player1BoardPlacement,
+        playerGameboard.board,
+        'placement',
+        placement,
+      );
+    };
+    UI.getDirection(
+      validDirectionsToWords,
+      dirsDict,
+      placingShip.placeShip,
+      update,
+    );
+  } else {
+    UI.hideBoardPlacement();
+    UI.makeBoard(UI.player1Board, playerGameboard.board, 'manual');
+  } // Else, hide placing UI and start game
+  return true;
 };
 // Initialize game boards visuals
-UI.makeBoard(UI.player1Board, playerGameboard.board, 'placement');
+UI.makeBoard(UI.player1Board, playerGameboard.board, 'manual');
 UI.makeBoard(
   UI.player1BoardPlacement,
   playerGameboard.board,
