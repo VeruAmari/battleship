@@ -1,4 +1,5 @@
 :root {
+  --big-border-radius: 25px;
   --blue-1: rgb(157, 154, 252);
   background-color: rgb(255, 242, 238);
   color: rgb(29, 8, 0);
@@ -13,6 +14,7 @@ body {
   gap: 1rem;
 }
 
+.victory.screen,
 .header,
 .footer,
 .scores,
@@ -125,13 +127,14 @@ body,
   );
 }
 .boards {
+  box-sizing: content-box;
   --border-1: solid 5px rgb(0, 119, 128);
   --border-2: solid 5px rgb(8, 56, 75);
   padding: 25px;
   gap: 75px;
   position: relative;
   width: fit-content;
-  border-radius: 25px;
+  border-radius: var(--big-border-radius);
   border-bottom: var(--border-1);
   border-right: var(--border-1);
   border-left: var(--border-2);
@@ -140,7 +143,21 @@ body,
 .hid {
   visibility: hidden;
 }
+.text {
+  color: white;
+}
+.victory.screen > * {
+  border: 0px;
+}
 .victory.screen {
+  left: -2px;
+  top: -2px;
+  border-radius: var(--big-border-radius);
+  padding: 2px;
+  font-size: 1.5rem;
+  gap: 0.5rem;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto;
   position: absolute;
   height: 100%;
   width: 100%;
