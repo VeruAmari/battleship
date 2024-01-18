@@ -52,7 +52,8 @@ body,
   grid-template-columns: 1fr 1fr;
 }
 .boards > *,
-.ship.placement > .player-1 {
+.ship.placement > .player-1,
+.ship.direction > .direction {
   grid-template-columns: repeat(10, auto);
   background-color: var(--blue-1);
   background-image: radial-gradient(
@@ -153,8 +154,39 @@ body,
 .ship.placement > .player-1 {
   display: grid;
 }
+.ship.direction {
+  z-index: 1;
+}
+.ship.direction > .direction {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+}
+.up {
+  grid-column-start: 2;
+}
+.left,
+.right {
+  grid-row-start: 2;
+}
+.right {
+  grid-column-start: 3;
+}
+.down {
+  grid-row-start: 3;
+  grid-column-start: 2;
+}
+.up,
+.left,
+.right,
+.down {
+  border: solid black 1px;
+  font-size: 3vw;
+}
 .victory.screen,
-.ship.placement {
+.ship.placement,
+.ship.direction {
+  display: grid;
   left: -2px;
   top: -2px;
   border-radius: var(--big-border-radius);

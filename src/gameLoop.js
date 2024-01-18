@@ -11,8 +11,8 @@ const com = player('Computer');
 
 const UI = DOM();
 
-const playRound = async (playerInput) => {
-  const p1ChosenCoords = await p1.validMove(playerInput);
+const playRound = (playerInput) => {
+  const p1ChosenCoords = p1.validMove(playerInput);
   if (p1ChosenCoords) {
     const comChosenCoords = com.computerMakeMove();
     const playerAttack = computerGameboard.receiveAttack(p1ChosenCoords);
@@ -35,19 +35,43 @@ const playRound = async (playerInput) => {
     UI.updateP1Score(p1.getScore());
     UI.updateP2Score(com.getScore());
     const p1BoardStatus =
-      await playerGameboard.board[comChosenCoords].square.getStatus();
+      playerGameboard.board[comChosenCoords].square.getStatus();
     const comBoardStatus =
-      await computerGameboard.board[p1ChosenCoords].square.getStatus();
+      computerGameboard.board[p1ChosenCoords].square.getStatus();
     UI.updateBoardPlayer(comChosenCoords, p1BoardStatus);
     UI.updateBoardCom(p1ChosenCoords, comBoardStatus);
   }
 };
-// Initialize game boards visuals
-UI.makeBoard(UI.player1Board, playerGameboard.board, true);
-UI.makeBoard(UI.player1BoardPlacement, playerGameboard.board, true);
-UI.makeBoard(UI.player2Board, computerGameboard.board, false, playRound);
+const placement = (cell) => {
+  // Ask for directional input
+  const validDirections = Object.keys(
+    playerGameboard.board[cell].adjacents,
+  ).map((key) => {
+    if (cell[0] > key[0]) {
+      return 'up';
+    }
+    if (cell[0] < key[0]) {
+      return 'down';
+    }
+    if (cell[2] < key[2]) {
+      return 'right';
+    }
+    return 'left';
+  });
 
-console.log('Gamelup ran');
+  UI.getDirection(validDirections);
+  // player1BoardPlacement;
+  return false;
+};
+// Initialize game boards visuals
+UI.makeBoard(UI.player1Board, playerGameboard.board, 'placement');
+UI.makeBoard(
+  UI.player1BoardPlacement,
+  playerGameboard.board,
+  'placement',
+  placement,
+);
+UI.makeBoard(UI.player2Board, computerGameboard.board, 'computer', playRound);
 
 // What does a loop look like?
 // 1- Game initializes

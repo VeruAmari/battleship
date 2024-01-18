@@ -46,13 +46,14 @@ const gameboard = (start) => {
       const adjacency = {};
       Object.keys(vertexList).forEach((key) => {
         adjacency[key] = {};
+        adjacency[key].adjacents = {};
         adjacency[key].square = vertexList[key];
         movesList.forEach((move) => {
           const moveKey = `${Number(key[0]) + Number(move[0])},${
             Number(key[2]) + Number(move[1])
           }`;
           if (vertexList[moveKey]) {
-            adjacency[key][moveKey] = vertexList[moveKey];
+            adjacency[key].adjacents[moveKey] = vertexList[moveKey];
           }
         });
       });
