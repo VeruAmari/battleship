@@ -1,7 +1,5 @@
 const DOM = () => {
   const makeBoard = (div, boardData, display, cb) => {
-    // BoardData is an array containingall squares
-
     const data = Object.keys(boardData);
 
     data.forEach((key) => {
@@ -13,18 +11,6 @@ const DOM = () => {
         newSquare.id = `p2-${key}`;
       }
       newSquare.classList.add(key);
-
-      /* if (!display) {
-        newSquare.addEventListener('click', () => {
-          if (boardData[key].square.getShipID()) {
-            newSquare.textContent = 'o';
-            newSquare.classList.add('hit');
-          } else {
-            newSquare.textContent = 'x';
-            newSquare.classList.add('miss');
-          }
-        });
-      } */
 
       if (cb) {
         newSquare.addEventListener('click', () => {
