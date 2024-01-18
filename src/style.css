@@ -37,11 +37,11 @@ body,
 }
 .header {
   height: 7rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 .scores {
   grid-template-columns: 1fr 1fr;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 .player-1.score,
 .player-2.score {
@@ -68,9 +68,8 @@ body,
 .square {
   /*background-color: var(--blue-1);
 */
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
+  width: 3vw;
+  height: 3vw;
   align-items: center;
   justify-content: center;
 }
@@ -154,7 +153,7 @@ body,
   top: -2px;
   border-radius: var(--big-border-radius);
   padding: 2px;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   gap: 0.5rem;
   grid-template-rows: auto auto;
   grid-template-columns: auto;
