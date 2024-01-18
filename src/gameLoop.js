@@ -20,11 +20,16 @@ const playRound = async (playerInput) => {
     if (playerAttack) {
       p1.updateScore();
     }
-
+    if (computerGameboard.allShipsSunk()) {
+      UI.displayVictory(p1.getPlayer());
+    }
     // Updates board square status at specified coord
     const comAttack = playerGameboard.receiveAttack(comChosenCoords);
     if (comAttack) {
       com.updateScore();
+    }
+    if (playerGameboard.allShipsSunk() && !computerGameboard.allShipsSunk()) {
+      UI.displayVictory(com.getPlayer());
     }
 
     UI.updateP1Score(p1.getScore());

@@ -62,6 +62,12 @@ const DOM = () => {
     document.getElementById(`p2-${coords}`).classList.add(status);
   };
 
+  const displayVictory = (player) => {
+    const victoryScreen = document.querySelector('.victory.screen');
+    const victoryText = document.querySelector('.victory.screen .text');
+    victoryText.textContent = `${player} wins!`;
+    victoryScreen.classList.toggle('hid');
+  };
   return {
     makeBoard,
     player1Board,
@@ -70,6 +76,7 @@ const DOM = () => {
     updateP2Score,
     updateBoardCom,
     updateBoardPlayer,
+    displayVictory,
   };
 };
 
