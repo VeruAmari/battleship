@@ -33,6 +33,9 @@ const DOM = () => {
   const p1Score = document.querySelector('.player-1.score>.score.num');
   const p2Score = document.querySelector('.player-2.score>.score.num');
   const player1Board = document.querySelector('.boards>.player-1');
+  const player1BoardPlacement = document.querySelector(
+    '.ship.placement>.player-1',
+  );
 
   const player2Board = document.querySelector('.boards>.player-2');
   const updateP1Score = (newScore) => {
@@ -57,6 +60,7 @@ const DOM = () => {
   return {
     makeBoard,
     player1Board,
+    player1BoardPlacement,
     player2Board,
     updateP1Score,
     updateP2Score,

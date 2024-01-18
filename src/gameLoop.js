@@ -4,7 +4,7 @@ import DOM from './DOM';
 import player from './player';
 
 // Initialize gameboards data and players data
-const playerGameboard = gameboard(true);
+const playerGameboard = gameboard();
 const computerGameboard = gameboard(true);
 const p1 = player('Player 1');
 const com = player('Computer');
@@ -44,6 +44,7 @@ const playRound = async (playerInput) => {
 };
 // Initialize game boards visuals
 UI.makeBoard(UI.player1Board, playerGameboard.board, true);
+UI.makeBoard(UI.player1BoardPlacement, playerGameboard.board, true);
 UI.makeBoard(UI.player2Board, computerGameboard.board, false, playRound);
 
 console.log('Gamelup ran');

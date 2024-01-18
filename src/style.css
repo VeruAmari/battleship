@@ -51,7 +51,8 @@ body,
 .boards {
   grid-template-columns: 1fr 1fr;
 }
-.boards > * {
+.boards > *,
+.ship.placement > .player-1 {
   grid-template-columns: repeat(10, auto);
   background-color: var(--blue-1);
   background-image: radial-gradient(
@@ -62,7 +63,8 @@ body,
   align-content: center;
   justify-content: center;
 }
-.boards > * > * {
+.boards > * > *,
+.ship.placement > .player-1 > * {
   border: solid 1px black;
 }
 .square {
@@ -148,7 +150,11 @@ body,
 .victory.screen > * {
   border: 0px;
 }
-.victory.screen {
+.ship.placement > .player-1 {
+  display: grid;
+}
+.victory.screen,
+.ship.placement {
   left: -2px;
   top: -2px;
   border-radius: var(--big-border-radius);
