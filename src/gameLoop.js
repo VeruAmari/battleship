@@ -46,6 +46,8 @@ const playRound = (playerInput) => {
 const shipKeys = Object.keys(playerGameboard.ships);
 
 const placement = (cell) => {
+  console.log('Placement got called. Cell:');
+  console.log('Shipkeys', shipKeys.length);
   // Ask for directional input
   if (shipKeys.length <= 0) {
     UI.hideBoardPlacement();
@@ -109,15 +111,23 @@ const placement = (cell) => {
   } // Else, hide placing UI and start game
   return true;
 };
+
 // Initialize game boards visuals
+
+// Player's board:
+// Should display ships and computer's hits but should not have event listeners for clicks
 UI.makeBoard(UI.player1Board, playerGameboard.board, 'manual');
+
+// Players ship-placement interface.
 UI.makeBoard(
   UI.player1BoardPlacement,
   playerGameboard.board,
   'placement',
   placement,
 );
-UI.makeBoard(UI.player2Board, computerGameboard.board, 'computer', playRound);
+
+// Computer board, with which player interacts to play.
+UI.makeBoard(UI.player2Board, computerGameboard.board, false, playRound);
 
 // What does a loop look like?
 // 1- Game initializes

@@ -7,20 +7,20 @@ const DOM = () => {
     data.forEach((key) => {
       const newSquare = document.createElement('div');
       newSquare.classList.add('square');
-      if (mode === 'placement' || mode === 'auto') {
+      if (mode) {
         newSquare.id = `p1-${key}`;
       } else {
         newSquare.id = `p2-${key}`;
       }
       newSquare.classList.add(key);
 
-      if (mode === 'computer') {
+      if (cb) {
         newSquare.addEventListener('click', () => {
-          cb(key);
+          console.log(cb(key));
         });
       }
 
-      if (mode === 'placement' || mode === 'auto') {
+      if (mode === 'auto') {
         newSquare.addEventListener('click', () => {
           if (cb(key)) {
             makeBoard(div, boardData, mode, cb);
@@ -28,7 +28,7 @@ const DOM = () => {
         });
       }
 
-      if (mode === 'placement' || mode === 'manual' || mode === 'auto') {
+      if (mode) {
         if (boardData[key].square.getShipID()) {
           newSquare.classList.add('has-ship');
           newSquare.classList.add(`${boardData[key].square.getShipID()}`);
@@ -62,7 +62,9 @@ const DOM = () => {
     document.getElementById(`p2-${coords}`).classList.add(status);
   };
   const hideBoardPlacement = () => {
-    document.querySelector('.ship.placement').classList.add('hid');
+    const shipPlacement = document.querySelector('.ship.placement');
+    shipPlacement.textContent = '';
+    shipPlacement.classList.add('hid');
   };
   const displayVictory = (player) => {
     const victoryScreen = document.querySelector('.victory.screen');
