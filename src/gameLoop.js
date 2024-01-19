@@ -46,7 +46,7 @@ const playRound = async (playerInput) => {
 UI.makeBoard(UI.player1Board, playerGameboard.board, true);
 UI.makeBoard(UI.player2Board, computerGameboard.board, false, playRound);
 
-console.log('Gamelup ran');
+console.log('Gameloop ran');
 
 // What does a loop look like?
 // 1- Game initializes
