@@ -106,8 +106,11 @@ const placement = (cell) => {
       update,
     );
   } else {
+    shipKeys.push(currentShipKey);
+    /*
     UI.hideBoardPlacement();
     UI.makeBoard(UI.player2Board, playerGameboard.board, 'manual');
+  */
   } // Else, hide placing UI and start game
   return true;
 };
