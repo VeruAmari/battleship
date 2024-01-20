@@ -51,7 +51,9 @@ body,
 .boards {
   grid-template-columns: 1fr 1fr;
 }
-.boards > * {
+.boards > *,
+.ship.placement > .player-1,
+.ship.direction > .direction {
   grid-template-columns: repeat(10, auto);
   background-color: var(--blue-1);
   background-image: radial-gradient(
@@ -62,7 +64,8 @@ body,
   align-content: center;
   justify-content: center;
 }
-.boards > * > * {
+.boards > * > *,
+.ship.placement > .player-1 > * {
   border: solid 1px black;
 }
 .square {
@@ -80,50 +83,35 @@ body,
   background-color: rgba(173, 255, 188, 0.7);
 }
 .square:hover {
-  background-color: rgba(126, 188, 137, 0.7);
+  background-color: rgba(148, 239, 255, 0.7);
 }
 .has-ship {
   border: dotted white 1px;
 }
 .b1,
 .b2 {
-  background-image: radial-gradient(
-    rgba(73, 67, 95, 0.2),
-    rgba(201, 182, 153, 1)
-  );
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgb(255, 213, 150));
 }
 .c1 {
-  background-image: radial-gradient(
-    rgba(73, 67, 95, 0.2),
-    rgba(127, 166, 173, 1)
-  );
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgb(150, 255, 238));
 }
 .d1,
 .d2,
 .d3 {
-  background-image: radial-gradient(
-    rgba(73, 67, 95, 0.2),
-    rgba(195, 156, 233, 1)
-  );
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgb(217, 179, 255));
 }
 .s1,
 .s2,
 .s3,
 .s4 {
-  background-image: radial-gradient(
-    rgba(73, 67, 95, 0.2),
-    rgba(143, 115, 245, 1)
-  );
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgb(159, 56, 255));
 }
 .pb1,
 .pb2,
 .pb3,
 .pb4,
 .pb5 {
-  background-image: radial-gradient(
-    rgba(73, 67, 95, 0.2),
-    rgba(177, 214, 238, 1)
-  );
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgb(188, 255, 157));
 }
 .boards {
   box-sizing: content-box;
@@ -148,7 +136,42 @@ body,
 .victory.screen > * {
   border: 0px;
 }
-.victory.screen {
+.ship.placement > .player-1 {
+  display: grid;
+}
+.ship.direction {
+  z-index: 1;
+}
+.ship.direction > .direction {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+}
+.up {
+  grid-column-start: 2;
+}
+.left,
+.right {
+  grid-row-start: 2;
+}
+.right {
+  grid-column-start: 3;
+}
+.down {
+  grid-row-start: 3;
+  grid-column-start: 2;
+}
+.up,
+.left,
+.right,
+.down {
+  border: solid black 1px;
+  font-size: 3vw;
+}
+.victory.screen,
+.ship.placement,
+.ship.direction {
+  display: grid;
   left: -2px;
   top: -2px;
   border-radius: var(--big-border-radius);
