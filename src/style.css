@@ -83,35 +83,35 @@ body,
   background-color: rgba(173, 255, 188, 0.7);
 }
 .square:hover {
-  background-color: rgba(126, 188, 137, 0.7);
+  background-color: rgba(148, 239, 255, 0.7);
 }
 .has-ship {
   border: dotted white 1px;
 }
 .b1,
 .b2 {
-  background-image: radial-gradient(rgba(73, 67, 95, 0.2), rgb(172, 141, 96));
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgb(255, 213, 150));
 }
 .c1 {
-  background-image: radial-gradient(rgba(73, 67, 95, 0.2), rgb(59, 113, 122));
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgb(150, 255, 238));
 }
 .d1,
 .d2,
 .d3 {
-  background-image: radial-gradient(rgba(73, 67, 95, 0.2), rgb(108, 71, 145));
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgb(217, 179, 255));
 }
 .s1,
 .s2,
 .s3,
 .s4 {
-  background-image: radial-gradient(rgba(73, 67, 95, 0.2), rgb(55, 40, 107));
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgb(159, 56, 255));
 }
 .pb1,
 .pb2,
 .pb3,
 .pb4,
 .pb5 {
-  background-image: radial-gradient(rgba(73, 67, 95, 0.2), rgb(53, 82, 102));
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1), rgb(188, 255, 157));
 }
 .boards {
   box-sizing: content-box;
